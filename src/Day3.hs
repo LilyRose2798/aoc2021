@@ -1,7 +1,6 @@
 module Day3 (parse, solveOne, solveTwo) where
 
 import Data.List (transpose, partition)
-import Data.List.Extra (comparingLength)
 import Data.Function (on)
 import Util.Bits (fromListBE)
 
