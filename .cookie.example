@@ -1,0 +1,2 @@
+To download input automatically, create a .cookie file containing your browser cookies for adventofcode.com in the following format:
+session=xyz
