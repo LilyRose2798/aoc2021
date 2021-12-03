@@ -12,6 +12,8 @@ executable aoc2021
   main-is: Main.hs
   build-depends:
     base >=4.12 && <4.13,
+    extra,
+    util,
     text,
     split,
     utf8-string,

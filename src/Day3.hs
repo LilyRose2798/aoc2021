@@ -1,10 +1,26 @@
 module Day3 (parse, solveOne, solveTwo) where
 
-parse :: String -> String
-parse = id
+import Data.List (transpose, partition)
+import Data.List.Extra (comparingLength)
+import Data.Function (on)
+import Util.Bits (fromListBE)
 
-solveOne :: a -> a
-solveOne = id
+parse :: String -> [[Bool]]
+parse = map (map (== '1')) . lines
 
-solveTwo :: a -> a
-solveTwo = id
+hasMoreFalses :: [Bool] -> Bool
+hasMoreFalses = uncurry ((<) `on` length) . partition id
+
+mulBools :: [Bool] -> [Bool] -> Int
+mulBools = (*) `on` fromListBE
+
+solveOne :: [[Bool]] -> Int
+solveOne = (mulBools <*> map not) . map hasMoreFalses . transpose
+
+rec :: Bool -> [Bool] -> [[Bool]] -> [Bool]
+rec _ a ([]:_) = reverse a
+rec _ a (c:[]) = reverse a ++ c
+rec i a cs = ((rec i) <$> (: a) <*> (\x -> map tail $ filter ((== x) . head) cs)) ((== i) $ hasMoreFalses $ map head cs)
+
+solveTwo :: [[Bool]] -> Int
+solveTwo = mulBools <$> rec True [] <*> rec False []
