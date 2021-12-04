@@ -10,21 +10,21 @@ type BingoLine = Set Int
 type DrawSet = Set Int
 type Draws = [Int]
 
-parse :: String -> ([[BingoLine]], Draws)
-parse = (\(n:bs) -> (map (map Set.fromList . ((++) <*> transpose) . map (map read . words) . lines) bs, map read $ splitOn "," n)) . splitOn "\n\n"
+parse :: String -> (Draws, [[BingoLine]])
+parse = (\(n:bs) -> (map read $ splitOn "," n, map (map Set.fromList . ((++) <*> transpose) . map (map read . words) . lines) bs)) . splitOn "\n\n"
 
 hasBingo :: DrawSet -> [BingoLine] -> Bool
 hasBingo = any . flip Set.isSubsetOf
 
-score :: [BingoLine] -> Draws -> Int
-score bls ds = last ds * sum (Set.difference (Set.unions bls) (Set.fromList ds))
+score :: Draws -> [BingoLine] -> Int
+score ds bls = last ds * sum (Set.difference (Set.unions bls) (Set.fromList ds))
 
-solveOne :: ([[BingoLine]], Draws) -> Int
-solveOne (blss, ds) = (flip score <*> (fromJust . flip find blss . hasBingo . Set.fromList)) $ fromJust $ find (flip any blss . hasBingo . Set.fromList) (inits ds)
+solveOne :: (Draws, [[BingoLine]]) -> Int
+solveOne (ds, blss) = (score <*> (fromJust . flip find blss . hasBingo . Set.fromList)) $ fromJust $ find (flip any blss . hasBingo . Set.fromList) (inits ds)
 
-rec :: [[BingoLine]] -> [Draws] -> Int
-rec (bls:[]) dss = score bls $ fromJust $ find ((flip hasBingo) bls . Set.fromList) dss
-rec blss (ds:dss) = rec (filter (not . hasBingo (Set.fromList ds)) blss) dss
+rec :: [Draws] -> [[BingoLine]] -> Int
+rec dss (bls:[]) = flip score bls $ fromJust $ find ((flip hasBingo) bls . Set.fromList) dss
+rec (ds:dss) blss = rec dss (filter (not . hasBingo (Set.fromList ds)) blss)
 
-solveTwo :: ([[BingoLine]], Draws) -> Int
-solveTwo (blss, ds) = rec blss (inits ds)
+solveTwo :: (Draws, [[BingoLine]]) -> Int
+solveTwo = uncurry (rec . inits)
