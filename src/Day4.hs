@@ -1,5 +1,7 @@
 module Day4 (parse, solveOne, solveTwo) where
 
+import Control.Applicative (liftA2)
+import Control.Arrow ((***))
 import Data.List.Split (splitOn)
 import Data.List (transpose, inits, find)
 import Data.Maybe (fromJust)
@@ -12,20 +14,20 @@ type DrawSet = Set Int
 type Draws = [Int]
 
 parse :: String -> (Draws, [Board])
-parse = (\(n:bs) -> (map read $ splitOn "," n, map (map Set.fromList . ((++) <*> transpose) . map (map read . words) . lines) bs)) . splitOn "\n\n"
+parse = (map read . splitOn "," *** map (map Set.fromList . ((++) <*> transpose) . map (map read . words) . lines)) . liftA2 (,) head tail . splitOn "\n\n"
 
 hasBingo :: DrawSet -> Board -> Bool
 hasBingo = any . flip Set.isSubsetOf
 
 score :: Draws -> Board -> Int
-score ds bls = last ds * sum (Set.difference (Set.unions bls) (Set.fromList ds))
+score ds b = last ds * sum (Set.difference (Set.unions b) (Set.fromList ds))
 
 solveOne :: (Draws, [Board]) -> Int
-solveOne (ds, blss) = (score <*> (fromJust . flip find blss . hasBingo . Set.fromList)) $ fromJust $ find (flip any blss . hasBingo . Set.fromList) (inits ds)
+solveOne (ds, bs) = (score <*> (fromJust . flip find bs . hasBingo . Set.fromList)) $ fromJust $ find (flip any bs . hasBingo . Set.fromList) (inits ds)
 
 rec :: [Draws] -> [Board] -> Int
-rec dss (bls:[]) = flip score bls $ fromJust $ find ((flip hasBingo) bls . Set.fromList) dss
-rec (ds:dss) blss = rec dss (filter (not . hasBingo (Set.fromList ds)) blss)
+rec dss (b:[]) = flip score b $ fromJust $ find ((flip hasBingo) b . Set.fromList) dss
+rec (ds:dss) bs = rec dss (filter (not . hasBingo (Set.fromList ds)) bs)
 
 solveTwo :: (Draws, [Board]) -> Int
 solveTwo = uncurry (rec . inits)
