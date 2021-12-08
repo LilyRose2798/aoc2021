@@ -9,11 +9,11 @@ import Data.Digits (unDigits)
 import qualified Data.Set as Set
 import qualified Data.Map.Strict as Map
 
-segmentsToFreqSumBy :: [String] -> String -> Int
-segmentsToFreqSumBy = (\m -> sum . map (m Map.!)) . Map.fromList . zip ['a'..'g'] . map length . group . sort . join
-
 digitSegments :: [String]
 digitSegments = ["abcefg", "cf", "acdeg", "acdfg", "bcdf", "abdfg", "abdefg", "acf", "abcdefg", "abcdfg"]
+
+segmentsToFreqSumBy :: [String] -> String -> Int
+segmentsToFreqSumBy = (\m -> sum . map (m Map.!)) . Map.fromList . zip ['a'..'g'] . map length . group . sort . join
 
 freqSumMap :: Map.Map Int Int
 freqSumMap = Map.fromList (zip (map (segmentsToFreqSumBy digitSegments) digitSegments) [0..])
