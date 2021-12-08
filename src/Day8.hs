@@ -2,7 +2,7 @@ module Day8 (parse, solveOne, solveTwo) where
 
 import Control.Monad (join)
 import Data.Maybe (fromJust)
-import Data.List (transpose, group, sort)
+import Data.List (group, sort)
 import Data.List.Extra (stripInfix)
 import Data.Tuple.Extra (both)
 import Data.Digits (unDigits)
