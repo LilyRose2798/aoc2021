@@ -25,7 +25,7 @@ solve :: ([String], [String]) -> [Int]
 solve (xs, ys) = map ((freqSumMap Map.!) . segmentsToFreqSumBy xs) ys
 
 solveOne :: [([String], [String])] -> Int
-solveOne = length . filter (`Set.member` (Set.fromList [1, 4, 7, 8])) . (>>= solve)
+solveOne = length . filter (`Set.member` Set.fromList [1, 4, 7, 8]) . (>>= solve)
 
 solveTwo :: [([String], [String])] -> Int
 solveTwo = sum . map (unDigits 10 . solve)
