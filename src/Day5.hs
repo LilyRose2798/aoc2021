@@ -3,7 +3,8 @@
 module Day5 (parse, solveOne, solveTwo) where
 
 import Data.Maybe (fromJust)
-import Data.List.Extra (stripInfix, group, sort)
+import Data.List (group, sort)
+import Data.List.Extra (stripInfix)
 import Data.Tuple.Extra (both)
 
 type Point = (Int, Int)

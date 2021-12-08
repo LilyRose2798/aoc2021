@@ -21,7 +21,8 @@ executable aoc2021
     bytestring,
     conduit,
     http-conduit,
-    range
+    range,
+    digits
   hs-source-dirs: src
   default-language: Haskell2010
   other-modules:
@@ -32,3 +33,4 @@ executable aoc2021
     Day5
     Day6
     Day7
+    Day8
