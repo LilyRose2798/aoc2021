@@ -1,3 +1,5 @@
+{-# OPTIONS -Wno-incomplete-patterns #-}
+
 module Day6 (parse, solveOne, solveTwo) where
 
 import Data.List.Split (splitOn)

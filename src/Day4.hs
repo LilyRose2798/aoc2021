@@ -1,3 +1,5 @@
+{-# OPTIONS -Wno-incomplete-patterns #-}
+
 module Day4 (parse, solveOne, solveTwo) where
 
 import Control.Applicative (liftA2)
