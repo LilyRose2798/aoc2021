@@ -41,7 +41,7 @@ downloadInput n = do
   runConduitRes $ httpSource (addRequestHeader "Cookie" cookie req) getResponseBody .| sinkFile ("input/day" ++ show n ++ ".txt")
 
 readInput :: Int -> IO String
-readInput n = catch readFileN (\e -> const (downloadInput n >>= const readFileN) (e :: IOException))
+readInput n = catch readFileN (const (downloadInput n >>= const readFileN) :: IOException -> IO String)
   where readFileN = readFile ("input/day" ++ show n ++ ".txt")
 
 runDay :: (String -> String) -> Int -> IO ()
@@ -52,5 +52,5 @@ runDay s n = do
 
 main :: IO ()
 main = do
-  (t, _) <- timeItT $ sequence_ (map (uncurry runDay) (zip solvers [1..]))
+  (t, _) <- timeItT $ mapM_ (uncurry runDay) (zip solvers [1..])
   printf "Total CPU Time: %.3fs\n" t
