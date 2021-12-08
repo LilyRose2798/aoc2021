@@ -18,7 +18,7 @@ solveOne = (mulBools <*> map not) . map hasMoreFalses . transpose
 
 rec :: Bool -> [Bool] -> [[Bool]] -> [Bool]
 rec _ a ([]:_) = reverse a
-rec _ a (c:[]) = reverse a ++ c
+rec _ a [c] = reverse a ++ c
 rec i a cs = (rec i <$> (: a) <*> (\x -> map tail $ filter ((== x) . head) cs)) ((== i) $ hasMoreFalses $ map head cs)
 
 solveTwo :: [[Bool]] -> Int
