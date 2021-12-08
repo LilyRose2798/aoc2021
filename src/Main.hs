@@ -2,12 +2,12 @@
 
 module Main where
 
-import Control.Exception
+import Control.Exception (catch, IOException)
 import qualified Data.ByteString as BS
 import qualified Data.ByteString.UTF8 as BSU
 import Data.Conduit ((.|), runConduitRes)
 import Data.Conduit.Combinators (sinkFile)
-import Network.HTTP.Simple
+import Network.HTTP.Simple (parseRequest, httpSource, addRequestHeader, getResponseBody)
 import System.TimeIt (timeItT)
 import Text.Printf (printf)
 
