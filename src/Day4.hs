@@ -26,7 +26,7 @@ solveOne :: (Draws, [Board]) -> Int
 solveOne (ds, bs) = (score <*> (fromJust . flip find bs . hasBingo . Set.fromList)) $ fromJust $ find (flip any bs . hasBingo . Set.fromList) (inits ds)
 
 rec :: [Draws] -> [Board] -> Int
-rec dss (b:[]) = flip score b $ fromJust $ find ((flip hasBingo) b . Set.fromList) dss
+rec dss (b:[]) = flip score b $ fromJust $ find (flip hasBingo b . Set.fromList) dss
 rec (ds:dss) bs = rec dss (filter (not . hasBingo (Set.fromList ds)) bs)
 
 solveTwo :: (Draws, [Board]) -> Int
