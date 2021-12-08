@@ -3,6 +3,7 @@
 module Main where
 
 import Control.Exception (catch, IOException)
+import Control.Monad (zipWithM)
 import qualified Data.ByteString as BS
 import qualified Data.ByteString.UTF8 as BSU
 import Data.Conduit ((.|), runConduitRes)
@@ -23,7 +24,7 @@ import qualified Day8
 solve :: (Show b, Show c) => (String -> a) -> (a -> b) -> (a -> c) -> String -> String
 solve parse solveOne solveTwo = ((\x y -> "Part One: " ++ show x ++ "\nPart Two: " ++ show y) <$> solveOne <*> solveTwo) . parse
 
-solvers = 
+solvers =
   [ solve Day1.parse Day1.solveOne Day1.solveTwo
   , solve Day2.parse Day2.solveOne Day2.solveTwo
   , solve Day3.parse Day3.solveOne Day3.solveTwo
@@ -44,13 +45,14 @@ readInput :: Int -> IO String
 readInput n = catch readFileN (const (downloadInput n >>= const readFileN) :: IOException -> IO String)
   where readFileN = readFile ("input/day" ++ show n ++ ".txt")
 
-runDay :: (String -> String) -> Int -> IO ()
+runDay :: (String -> String) -> Int -> IO Double
 runDay s n = do
   i <- readInput n
   (t, _) <- timeItT $ putStrLn ("Day " ++ show n ++ "\n" ++ s i)
   printf "CPU Time: %.3fs\n\n" t
+  return t
 
 main :: IO ()
 main = do
-  (t, _) <- timeItT $ mapM_ (uncurry runDay) (zip solvers [1..])
-  printf "Total CPU Time: %.3fs\n" t
+  ts <- zipWithM runDay solvers [1..]
+  printf "Total CPU Time: %.3fs\n" (sum ts)
