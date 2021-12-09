@@ -20,6 +20,7 @@ import qualified Day5
 import qualified Day6
 import qualified Day7
 import qualified Day8
+import qualified Day9
 
 solve :: (Show b, Show c) => (String -> a) -> (a -> b) -> (a -> c) -> String -> String
 solve parse solveOne solveTwo = ((\x y -> "Part One: " ++ show x ++ "\nPart Two: " ++ show y) <$> solveOne <*> solveTwo) . parse
@@ -33,6 +34,7 @@ solvers =
   , solve Day6.parse Day6.solveOne Day6.solveTwo
   , solve Day7.parse Day7.solveOne Day7.solveTwo
   , solve Day8.parse Day8.solveOne Day8.solveTwo
+  , solve Day9.parse Day9.solveOne Day9.solveTwo
   ]
 
 downloadInput :: Int -> IO ()
