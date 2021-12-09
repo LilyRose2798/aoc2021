@@ -8,11 +8,10 @@ import Data.List.Split (splitOn)
 import Data.List (transpose, inits, find)
 import Data.Maybe (fromJust)
 import qualified Data.Set as Set
-import Data.Set (Set)
 
-type BingoLine = Set Int
+type BingoLine = Set.Set Int
 type Board = [BingoLine]
-type DrawSet = Set Int
+type DrawSet = Set.Set Int
 type Draws = [Int]
 
 parse :: String -> (Draws, [Board])
