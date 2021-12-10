@@ -1,6 +1,6 @@
 {-# OPTIONS -Wno-incomplete-patterns #-}
 
-module Day6 (parse, solveOne, solveTwo) where
+module Day06 (parse, solveOne, solveTwo) where
 
 import Data.List.Split (splitOn)
 import Data.List (group, sort)

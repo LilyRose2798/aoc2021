@@ -1,4 +1,4 @@
-module Day7 (parse, solveOne, solveTwo) where
+module Day07 (parse, solveOne, solveTwo) where
 
 import Data.List.Split (splitOn)
 

@@ -1,6 +1,6 @@
 {-# LANGUAGE TupleSections #-}
 
-module Day5 (parse, solveOne, solveTwo) where
+module Day05 (parse, solveOne, solveTwo) where
 
 import Data.Maybe (fromJust)
 import Data.List (group, sort)

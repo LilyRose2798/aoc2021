@@ -12,29 +12,29 @@ import Network.HTTP.Simple (parseRequest, httpSource, addRequestHeader, getRespo
 import System.TimeIt (timeItT)
 import Text.Printf (printf)
 
-import qualified Day1
-import qualified Day2
-import qualified Day3
-import qualified Day4
-import qualified Day5
-import qualified Day6
-import qualified Day7
-import qualified Day8
-import qualified Day9
+import qualified Day01
+import qualified Day02
+import qualified Day03
+import qualified Day04
+import qualified Day05
+import qualified Day06
+import qualified Day07
+import qualified Day08
+import qualified Day09
 
 solve :: (Show b, Show c) => (String -> a) -> (a -> b) -> (a -> c) -> String -> String
 solve parse solveOne solveTwo = ((\x y -> "Part One: " ++ show x ++ "\nPart Two: " ++ show y) <$> solveOne <*> solveTwo) . parse
 
 solvers =
-  [ solve Day1.parse Day1.solveOne Day1.solveTwo
-  , solve Day2.parse Day2.solveOne Day2.solveTwo
-  , solve Day3.parse Day3.solveOne Day3.solveTwo
-  , solve Day4.parse Day4.solveOne Day4.solveTwo
-  , solve Day5.parse Day5.solveOne Day5.solveTwo
-  , solve Day6.parse Day6.solveOne Day6.solveTwo
-  , solve Day7.parse Day7.solveOne Day7.solveTwo
-  , solve Day8.parse Day8.solveOne Day8.solveTwo
-  , solve Day9.parse Day9.solveOne Day9.solveTwo
+  [ solve Day01.parse Day01.solveOne Day01.solveTwo
+  , solve Day02.parse Day02.solveOne Day02.solveTwo
+  , solve Day03.parse Day03.solveOne Day03.solveTwo
+  , solve Day04.parse Day04.solveOne Day04.solveTwo
+  , solve Day05.parse Day05.solveOne Day05.solveTwo
+  , solve Day06.parse Day06.solveOne Day06.solveTwo
+  , solve Day07.parse Day07.solveOne Day07.solveTwo
+  , solve Day08.parse Day08.solveOne Day08.solveTwo
+  , solve Day09.parse Day09.solveOne Day09.solveTwo
   ]
 
 downloadInput :: Int -> IO ()

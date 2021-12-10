@@ -1,4 +1,4 @@
-module Day1 (parse, solveOne, solveTwo) where
+module Day01 (parse, solveOne, solveTwo) where
 
 parse :: String -> [Int]
 parse = map read . lines

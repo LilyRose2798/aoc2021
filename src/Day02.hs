@@ -1,4 +1,4 @@
-module Day2 (parse, solveOne, solveTwo) where
+module Day02 (parse, solveOne, solveTwo) where
 
 import Control.Arrow ((***))
 import Data.Maybe (fromJust)

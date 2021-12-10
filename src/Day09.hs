@@ -1,4 +1,4 @@
-module Day9 (parse, solveOne, solveTwo) where
+module Day09 (parse, solveOne, solveTwo) where
 
 import Data.Char (digitToInt)
 import Data.Maybe (mapMaybe)

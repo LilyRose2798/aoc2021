@@ -1,4 +1,4 @@
-module Day8 (parse, solveOne, solveTwo) where
+module Day08 (parse, solveOne, solveTwo) where
 
 import Control.Monad (join)
 import Data.Maybe (fromJust)
