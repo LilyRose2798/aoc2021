@@ -6,9 +6,8 @@ import Text.Parsec as Parsec (ParseError, char, between, choice, eof, many, pars
 import Text.Parsec.Error (errorMessages, messageString)
 import Control.Monad (void)
 import Control.Applicative (liftA2)
-import Data.Either (fromLeft)
 import Data.List (find, sort)
-import Data.Maybe (mapMaybe, fromMaybe, isNothing)
+import Data.Maybe (isNothing)
 
 parse :: String -> [String]
 parse = lines
