@@ -37,20 +37,24 @@ solvers =
   , solve Day09.parse Day09.solveOne Day09.solveTwo
   ]
 
+showDay :: Int -> String
+showDay n | n < 10 = '0' : show n
+          | otherwise = show n
+
 downloadInput :: Int -> IO ()
 downloadInput n = do
   req <- parseRequest ("GET https://adventofcode.com/2021/day/" ++ show n ++ "/input")
   cookie <- BS.readFile ".cookie"
-  runConduitRes $ httpSource (addRequestHeader "Cookie" cookie req) getResponseBody .| sinkFile ("input/day" ++ show n ++ ".txt")
+  runConduitRes $ httpSource (addRequestHeader "Cookie" cookie req) getResponseBody .| sinkFile ("input/day" ++ showDay n ++ ".txt")
 
 readInput :: Int -> IO String
 readInput n = catch readFileN (const (downloadInput n >>= const readFileN) :: IOException -> IO String)
-  where readFileN = readFile ("input/day" ++ show n ++ ".txt")
+  where readFileN = readFile ("input/day" ++ showDay n ++ ".txt")
 
 runDay :: (String -> String) -> Int -> IO Double
 runDay s n = do
   i <- readInput n
-  (t, _) <- timeItT $ putStrLn ("Day " ++ show n ++ "\n" ++ s i)
+  (t, _) <- timeItT $ putStrLn ("Day " ++ showDay n ++ "\n" ++ s i)
   printf "CPU Time: %.3fs\n\n" t
   return t
 

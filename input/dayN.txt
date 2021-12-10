@@ -1,5 +1,6 @@
 If not using cookies to download input, put your inputs in this directory with filenames in the following format:
-day1.txt
-day2.txt
-day3.txt
+day01.txt
+day02.txt
+day03.txt
 ...
+day25.txt
